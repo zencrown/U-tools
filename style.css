@@ -1,840 +1,475 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Text+Me+One&family=Trade+Winds&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+/* uTool — lightweight monochrome UI */
+:root {
+  --bg: #050505;
+  --panel: rgba(12, 12, 12, .94);
+  --panel-soft: rgba(255, 255, 255, .035);
+  --border: rgba(255, 255, 255, .12);
+  --text: #fff;
+  --muted: #a0a0a0;
+  --accent: #fff;
+  --radius: 14px;
+  --ease: cubic-bezier(.22, 1, .36, 1)
+}
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Ubuntu", sans-serif;
-}
-
-:root {
-  --spring: cubic-bezier(0.47, 1.74, 0.41, 0.8);
-  --textN: #fff;
-  --textSoft: #dfe8ff;
-  --textDim: #8d93ad;
-  --folderBG: #07080d;
-  --navBarBG: rgba(27, 26, 36, 0.9);
-  --panelBG: rgba(15, 17, 25, 0.7);
-  --panelBorder: rgba(255, 255, 255, 0.08);
-  --iconGlint: repeating-conic-gradient(transparent, #ffffff30 20%);
-  --accent: #9faeff;
-  --accentStrong: #6ec8ff;
-  --shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
-}
-
-@property --accent {
-  syntax: '<color>';
-  inherits: true;
-  initial-value: #9faeff;
+  box-sizing: border-box
 }
 
 html {
-  transition: --accent 450ms ease;
-}
-
-/* per-category accent colour */
-.folders          { --c: #9faeff; }
-.folders.ai       { --c: #9faeff; }
-.folders.image    { --c: #ff9ecb; }
-.folders.video    { --c: #ffb86b; }
-.folders.audio    { --c: #6ee7b7; }
-.folders.wallpaper{ --c: #6ec8ff; }
-.folders.importx  { --c: #c4a1ff; }
-.folders.others   { --c: #ffd86e; }
-
-html {
-  width: 100%;
-  height: 100svh;
-  overflow: hidden;
+  min-height: 100%;
+  color-scheme: dark;
+  background: var(--bg);
+  scroll-behavior: smooth
 }
 
 body {
-  width: 100%;
-  height: 100svh;
-  background: var(--folderBG) url("./animated-space-dark-optimized.svg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: scroll;
+  min-height: 100svh;
+  margin: 0;
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--bg) url("./animated-space-dark-optimized.svg") center/cover fixed;
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
-  overflow: hidden !important;
-  color: var(--textN);
+  overflow: hidden
 }
 
-/* desktop-only pieces are hidden on mobile */
-.topBar,
+.fa::before {
+  display: inline-block;
+  font-family: Arial, sans-serif;
+  font-style: normal;
+  font-weight: 700
+}
+
+.fa-search::before {
+  content: "⌕"
+}
+
+.fa-magic::before {
+  content: "✦"
+}
+
+.fa-image::before {
+  content: "▧"
+}
+
+.fa-video-camera::before {
+  content: "▶"
+}
+
+.fa-volume-up::before {
+  content: "◖"
+}
+
+.fa-tv::before {
+  content: "▣"
+}
+
+.fa-rocket::before {
+  content: "↗"
+}
+
+.fa-star-o::before {
+  content: "☆"
+}
+
+.topBar {
+  display: none
+}
+
+.mainContainer {
+  width: min(100%, 1400px);
+  margin: 0 auto
+}
+
+.folders,
+.folders.ai,
+.folders.image,
+.folders.video,
+.folders.audio,
+.folders.wallpaper,
+.folders.importx,
+.folders.others {
+  --c: #fff
+}
+
 .folderTitle {
-  display: none;
+  display: none
 }
 
-body>.mainContainer {
-  border: none;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+.folders>a {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  min-width: 0;
+  min-height: 50px;
+  padding: 9px 12px;
+  margin: 5px 0;
+  gap: 10px;
+  overflow: hidden;
+  width: min(100%, 420px);
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background: var(--panel-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: left;
+  transition: transform 180ms ease, border-color 180ms ease, color 180ms ease
+}
+
+.folders>a>img {
+  width: 26px;
+  height: 26px;
+  flex: 0 0 26px;
+  object-fit: cover;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, .07)
+}
+
+.folders>a:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, .35);
+  text-shadow: 0 0 12px rgba(255, 255, 255, .18)
+}
+
+.folders>a:active {
+  transform: scale(.99)
+}
+
+.folders>a.hide,
+.folders.empty {
+  display: none
+}
+
+.mainContainer {
   position: relative;
-  max-width: 800px;
-  padding: 12px 0 8px;
   flex: 1;
   min-height: 0;
+  overflow: hidden
 }
 
 .mainContainer>.folders {
   position: absolute;
-  top: 0;
-  left: 0;
-  transition: opacity 300ms ease, transform 300ms ease;
-  display: flex;
-  align-items: center;
-  justify-content: safe center;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  max-height: 100%;
-  padding: 12px 18px;
-  background: rgba(12, 13, 19, 0.88);
-  color: white;
-  border: 1px solid var(--panelBorder);
-  border-radius: 18px;
-  flex-shrink: 0;
-  opacity: 0;
-  transform: scale(0.92) translateY(18px);
-  transform-origin: top;
-  pointer-events: none;
-  -webkit-pointer-events: none;
-  box-shadow: var(--shadow);
-  overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scrollbar-width: none;
-  scroll-margin-top: 16px;
-}
-
-.mainContainer>.folders.on {
-  opacity: 1;
-  transform: none;
-  transform-origin: bottom;
-  z-index: 1;
-  pointer-events: auto;
-  -webkit-pointer-events: auto;
-}
-
-.mainContainer>.folders>a {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  min-height: 52px;
-  min-width: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-  padding: 10px 14px;
-  margin: 6px 0px;
-  text-decoration: none;
-  color: var(--textN);
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
-  flex-shrink: 0;
-  transition: transform 180ms ease, border-color 180ms ease;
-  gap: 10px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.mainContainer>.folders>a:hover {
-  transform: translateY(-1px);
-  border-color: var(--c);
-  background: linear-gradient(135deg, color-mix(in srgb, var(--c) 18%, transparent), rgba(255,255,255,0.03));
-}
-
-.mainContainer>.folders>a::before {
-  position: absolute;
-  content: '';
-  top: 0;
-  left: 0;
-  background: linear-gradient(135deg, color-mix(in srgb, var(--c) 14%, transparent), rgba(255,255,255,0));
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
-
-.mainContainer>.folders>a>img {
-  height: 25px;
-  width: 25px;
-  object-fit: cover;
-  margin-right: 10px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: none;
-  padding: 2px;
-  background: rgba(255,255,255,0.1);
-  flex-shrink: 0;
-}
-
-.mainContainer>.folders>a.hide,
-.mainContainer>.folders.empty {
+  inset: 8px 8px 6px;
   display: none;
-}
-
-/* NAV-BAR : bottom tab bar (solid colours, no blur, no infinite animations) */
-
-body>.navBar {
-  order: 1;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 100;
-  width: 100%;
-  max-width: 700px;
-  display: flex;
-  align-items: stretch;
-  justify-content: space-around;
-  gap: 4px;
-  padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
-  background: #14161f;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: none;
-  border-radius: 18px 18px 0 0;
-  box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.35);
-}
-
-.navBar>span.icon {
-  position: relative;
-  flex: 1;
-  min-width: 0;
-  max-width: 88px;
-  min-height: 56px;
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  border-radius: 14px;
-  color: var(--textN);
+  padding: 12px 12px 16px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: transparent;
+  border: 0;
+  border-radius: 16px;
+  scrollbar-width: thin
+}
+
+.mainContainer>.folders.on {
+  display: flex;
+  animation: panelIn 420ms var(--ease) both
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px)
+  }
+  
+  to {
+    opacity: 1;
+    transform: none
+  }
+}
+
+.navBar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: stretch;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 700px;
+  padding: 5px 6px calc(5px + env(safe-area-inset-bottom));
+  gap: 3px;
+  background: #121212;
+  border: 1px solid var(--border);
+  border-bottom: 0;
+  border-radius: 16px 16px 0 0
+}
+
+.navBar>.icon {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 52px;
+  color: var(--muted);
   cursor: pointer;
+  border-radius: 11px;
   -webkit-tap-highlight-color: transparent;
-  transition: background-color 200ms ease, color 200ms ease;
+  transition: color 140ms ease, background-color 140ms ease
 }
 
-.navBar>span.icon * {
-  pointer-events: none;
+.navBar>.icon * {
+  pointer-events: none
 }
 
-.navBar>span.icon>i {
-  font-size: 19px;
-  opacity: 0.55;
-  transition: opacity 200ms ease, transform 200ms ease;
+.navBar>.icon>i {
+  font-size: 17px
 }
 
-.navBar>span.icon>.iconName {
-  position: static;
-  font-size: 11px;
-  text-transform: capitalize;
-  opacity: 0.55;
-  transition: opacity 200ms ease;
+.navBar .iconName {
+  margin-top: 3px;
+  font-size: 10px;
+  text-transform: capitalize
 }
 
-.navBar>span.icon>.navSpanBG {
-  display: none;
-}
-
-.navBar>span.on {
-  background: color-mix(in srgb, var(--accent) 16%, transparent);
+.navBar>.icon.on {
   color: var(--accent);
+  background: rgba(255, 255, 255, .12)
 }
 
-.navBar>span.on>i,
-.navBar>span.on>.iconName {
-  opacity: 1;
-}
-
-.navBar>span.on>i {
-  transform: scale(1.1);
-}
-
-@media (hover: hover) {
-  .navBar>span.icon:hover:not(.on) {
-    background: rgba(255, 255, 255, 0.06);
+@media (hover:hover) {
+  .navBar>.icon:hover:not(.on) {
+    color: var(--text);
+    background: rgba(255, 255, 255, .04)
   }
 }
 
-
-/* =========================================================
-   DESKTOP / TABLET  (>= 700px)
-   All categories visible at once. Links flow in a grid whose
-   column count adapts to the screen width automatically.
-   ========================================================= */
-@media (min-width: 700px) {
-
-  html,
-  body {
-    height: auto;
-    min-height: 100svh;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
+@media (min-width:700px) {
+  html {
+    overflow-y: auto
   }
-
+  
   body {
     display: block;
-    padding: 0 clamp(16px, 3vw, 40px) 120px;
-    background-image:
-      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(110, 120, 255, 0.18), transparent 60%),
-      url("./animated-space-dark-optimized.svg");
-    background-color: var(--folderBG);
-    background-size: cover, cover;
-    background-position: center top, center;
-    background-attachment: scroll, scroll;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255,255,255,0.18) transparent;
+    min-height: 100svh;
+    padding: 0 clamp(14px, 3vw, 40px) 100px;
+    overflow-x: hidden;
+    background: var(--bg) url("./animated-space-dark-optimized.svg") center/cover fixed
   }
-
-  /* nav becomes a floating dock at the bottom centre */
-  body>.navBar {
-    position: fixed;
-    left: 50%;
-    bottom: 18px;
-    transform: translateX(-50%);
-    width: auto;
-    max-width: none;
-    gap: 6px;
-    padding: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
-  }
-
-  .navBar>span.icon {
-    flex: none;
-    width: 72px;
-  }
-
-  /* ---------- header ---------- */
+  
   .topBar {
     position: sticky;
     top: 12px;
-    z-index: 50;
+    z-index: 20;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    max-width: 1400px;
-    margin: 14px auto 20px;
-    padding: 12px 14px 12px 22px;
-    background: rgba(15, 17, 26, 0.94);
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    border-radius: 18px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    width: min(100%, 1400px);
+    margin: 12px auto 18px;
+    padding: 11px 14px 11px 20px;
+    background: rgba(12, 12, 12, .96);
+    border: 1px solid var(--border);
+    border-radius: 15px
   }
-
+  
   .brand {
     display: flex;
     align-items: baseline;
-    gap: 14px;
-    min-width: 0;
+    min-width: 0
   }
-
+  
   .brandText {
     display: flex;
     align-items: baseline;
-    gap: 14px;
-    flex-wrap: wrap;
+    gap: 12px;
+    flex-wrap: wrap
   }
-
+  
   .brandText h1 {
-    font-family: "Orbitron", sans-serif;
-    font-size: 1.45rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: var(--textN);
-    line-height: 1;
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 750;
+    letter-spacing: .04em;
+    color: var(--accent)
   }
-
+  
   .brandText p {
-    font-size: 0.78rem;
-    color: var(--textDim);
-    padding-left: 14px;
-    border-left: 1px solid rgba(255, 255, 255, 0.14);
-    white-space: nowrap;
+    margin: 0;
+    padding-left: 12px;
+    color: var(--muted);
+    font-size: .76rem;
+    border-left: 1px solid var(--border)
   }
-
+  
   .search {
     position: relative;
     display: flex;
-    align-items: center;
-    flex: 0 1 380px;
-    min-width: 200px;
+    flex: 0 1 360px;
+    min-width: 190px;
+    align-items: center
   }
-
+  
   .search i {
     position: absolute;
-    left: 15px;
-    color: var(--textDim);
-    font-size: 0.85rem;
-    pointer-events: none;
-    font-family: "Font Awesome 6 Free", sans-serif;
-    font-weight: 900;
+    left: 13px;
+    color: var(--muted);
+    pointer-events: none
   }
-
+  
   .search input {
     width: 100%;
-    padding: 11px 44px 11px 40px;
-    color: var(--textN);
-    font-size: 0.92rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    outline: none;
-    transition: border-color 200ms, box-shadow 200ms, background 200ms;
+    padding: 10px 40px 10px 36px;
+    color: var(--text);
+    background: rgba(255, 255, 255, .045);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    outline: 0;
+    font: inherit;
+    font-size: .9rem
   }
-
-  .search input::placeholder {
-    color: var(--textDim);
+  
+  .search input:focus {
+    border-color: rgba(255, 255, 255, .65)
   }
-
+  
   .searchKey {
     position: absolute;
-    right: 10px;
-    min-width: 24px;
-    padding: 2px 7px;
-    text-align: center;
-    font-size: 0.75rem;
-    color: var(--textDim);
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-bottom-width: 2px;
-    border-radius: 6px;
-    pointer-events: none;
-    transition: opacity 150ms;
+    right: 9px;
+    padding: 1px 6px;
+    color: var(--muted);
+    font-size: .7rem;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    pointer-events: none
   }
-
-  .search input:focus + .searchKey,
-  .search input:not(:placeholder-shown) + .searchKey {
-    opacity: 0;
+  
+  .search input:focus+.searchKey,
+  .search input:not(:placeholder-shown)+.searchKey {
+    opacity: 0
   }
-
-  .search input:focus {
-    border-color: var(--accent);
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 0 4px rgba(159, 174, 255, 0.15);
-  }
-
-  /* ---------- layout of the categories ---------- */
+  
   body>.mainContainer {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
-    gap: 20px;
-    width: 100%;
-    height: auto;
-    max-width: 1400px;
+    gap: 14px;
+    width: min(100%, 1400px);
     margin: 0 auto;
-    padding: 0;
-    overflow: visible;
+    overflow: visible
   }
-
+  
   .mainContainer>.folders,
   .mainContainer>.folders.on {
     position: relative;
     inset: auto;
     display: grid;
-    /* column count adapts to the available width */
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-    gap: 12px;
-    align-content: start;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     align-items: stretch;
-    justify-content: stretch;
+    gap: 9px;
     width: 100%;
     height: auto;
-    max-height: none;
+    padding: 17px;
     overflow: visible;
-    padding: 22px 24px 26px;
-    border-radius: 24px;
-    background:
-      linear-gradient(180deg, color-mix(in srgb, var(--c) 7%, transparent), transparent 40%),
-      rgba(11, 13, 20, 0.62);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255,255,255,0.05);
+    background: transparent;
+    border: 0;
+    border-radius: 17px;
     opacity: 1;
     transform: none;
-    pointer-events: auto;
-    z-index: auto;
-    animation: cardIn 600ms ease both;
+    pointer-events: auto
   }
-
-  .mainContainer>.folders:nth-child(1) { animation-delay: 0ms; }
-  .mainContainer>.folders:nth-child(2) { animation-delay: 70ms; }
-  .mainContainer>.folders:nth-child(3) { animation-delay: 140ms; }
-  .mainContainer>.folders:nth-child(4) { animation-delay: 210ms; }
-  .mainContainer>.folders:nth-child(5) { animation-delay: 280ms; }
-  .mainContainer>.folders:nth-child(6) { animation-delay: 350ms; }
-
-  @keyframes cardIn {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: none; }
-  }
-
-  /* section heading spans the whole row */
+  
   .folderTitle {
-    grid-column: 1 / -1;
     display: flex;
+    grid-column: 1/-1;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 4px;
-    font-size: 0.8rem;
+    gap: 9px;
+    margin: 0 0 2px;
+    color: var(--text);
+    font-size: .78rem;
     font-weight: 700;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--textSoft);
+    letter-spacing: .16em;
+    text-transform: uppercase
   }
-
+  
   .folderTitle i {
-    width: 32px;
-    height: 32px;
     display: grid;
+    width: 28px;
+    height: 28px;
     place-items: center;
-    border-radius: 10px;
-    font-size: 0.85rem;
-    color: var(--c);
-    background: color-mix(in srgb, var(--c) 14%, transparent);
-    border: 1px solid color-mix(in srgb, var(--c) 35%, transparent);
-    font-family: "Font Awesome 6 Free", "FontAwesome", sans-serif;
-    font-weight: 900;
+    color: var(--text);
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: 8px
   }
-
+  
   .folderTitle::after {
-    content: '';
+    content: "";
     flex: 1;
     height: 1px;
-    background: linear-gradient(90deg, color-mix(in srgb, var(--c) 45%, transparent), transparent);
+    background: rgba(255, 255, 255, .18)
   }
-
-  /* ---------- link cards ---------- */
-  .mainContainer>.folders>a {
-    width: 100%;
-    min-height: 64px;
+  
+  .folders>a {
+    min-height: 58px;
     margin: 0;
-    padding: 12px 16px;
-    border-radius: 16px;
-    font-size: 0.95rem;
-    line-height: 1.25;
-    white-space: normal;
-    overflow: hidden;
+    padding: 10px 12px;
+    font-size: .9rem
   }
-
-  .mainContainer>.folders>a>img {
-    width: 32px;
-    height: 32px;
-    margin-right: 0;
+  
+  .folders>a>img {
+    width: 29px;
+    height: 29px;
+    flex-basis: 29px
   }
-
-  .mainContainer>.folders>a:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4), 0 0 0 1px color-mix(in srgb, var(--c) 40%, transparent);
+  
+  body>.navBar {
+    position: fixed;
+    left: 50%;
+    bottom: 15px;
+    z-index: 30;
+    width: auto;
+    max-width: none;
+    transform: translateX(-50%);
+    padding: 5px;
+    gap: 4px;
+    border: 1px solid var(--border);
+    border-radius: 15px
   }
-
-  .mainContainer>.folders>a::after {
-    content: "\f061";
-    font-family: "Font Awesome 6 Free", sans-serif;
-    font-weight: 900;
-    margin-left: auto;
-    padding-left: 8px;
-    font-size: 0.75rem;
-    color: var(--c);
-    opacity: 0;
-    transform: translateX(-6px);
-    transition: opacity 180ms, transform 180ms;
-    flex-shrink: 0;
+  
+  .navBar>.icon {
+    flex: 0 0 68px;
+    min-height: 48px
   }
-
-  .mainContainer>.folders>a:hover::after {
-    opacity: 1;
-    transform: none;
+  
+  .navBar::before,
+  .navBar.ready::before {
+    display: none
   }
 }
 
-/* wider screens: slightly bigger minimum so cards stay comfortable */
-@media (min-width: 1200px) {
+@media (min-width:1200px) {
+
   .mainContainer>.folders,
   .mainContainer>.folders.on {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr))
   }
 }
 
-@media (min-width: 1700px) {
-  .topBar,
-  body>.mainContainer {
-    max-width: 1700px;
+@media (max-width:420px) {
+  .folders>a {
+    min-height: 48px;
+    font-size: .9rem
+  }
+  
+  .navBar .iconName {
+    font-size: 9px
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .mainContainer>.folders {
+@media (prefers-reduced-motion:reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
     animation: none !important;
-  }
-}
-
-
-/* ===== Global theme follows --accent ===== */
-.mainContainer>.folders,
-.mainContainer>.folders.on {
-  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
-}
-
-body>.navBar {
-  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
-  box-shadow: 0 -6px 20px color-mix(in srgb, var(--accent) 12%, rgba(0,0,0,0.35));
-}
-
-.navBar>span.on {
-  background: color-mix(in srgb, var(--accent) 18%, transparent);
-  color: var(--accent);
-}
-
-@media (min-width: 700px) {
-  body {
-    background-image:
-      radial-gradient(ellipse 80% 50% at 50% -10%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%),
-      url("./animated-space-dark-optimized.svg");
-    scrollbar-color: color-mix(in srgb, var(--accent) 45%, transparent) transparent;
-  }
-
-  body>.navBar {
-    border-color: color-mix(in srgb, var(--accent) 35%, transparent);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.5), 0 0 24px color-mix(in srgb, var(--accent) 18%, transparent);
-  }
-
-  .topBar {
-    border-color: color-mix(in srgb, var(--accent) 30%, transparent);
-  }
-
-  .brandText h1 {
-    color: var(--accent);
-    text-shadow: 0 0 18px color-mix(in srgb, var(--accent) 50%, transparent);
-  }
-
-  .search input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent);
-  }
-}
-
-
-/* =========================================================
-   MOTION  (smooth glides: no squash & stretch, no idle loops)
-   One shared easing language:
-     --ease     expo-out. Fast start, long soft landing (entrances, hovers)
-     --ease-in  accelerates away (exits)
-   ========================================================= */
-:root {
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
-}
-
-/* ---------- keyframes ---------- */
-@keyframes panelIn {
-  from { opacity: 0; transform: translateX(calc(var(--dir, 1) * 36px)) scale(0.985); }
-  to   { opacity: 1; transform: none; }
-}
-
-@keyframes linkIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: none; }
-}
-
-@keyframes dockIn {
-  from { opacity: 0; transform: translateY(100%); }
-  to   { opacity: 1; transform: none; }
-}
-
-@keyframes dockInDesktop {
-  from { opacity: 0; transform: translate(-50%, 40px); }
-  to   { opacity: 1; transform: translate(-50%, 0); }
-}
-
-@keyframes topIn {
-  from { opacity: 0; transform: translateY(-14px); }
-  to   { opacity: 1; transform: none; }
-}
-
-@keyframes cardIn {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: none; }
-}
-
-/* NOTE: entrances use fill-mode "backwards" (not "both"), so once an
-   animation ends it stops overriding :hover / :active transforms. */
-
-/* ---------- link cards ---------- */
-.mainContainer>.folders>a {
-  transition:
-    transform 260ms var(--ease),
-    border-color 200ms ease,
-    background 200ms ease,
-    box-shadow 300ms ease;
-}
-
-.mainContainer>.folders>a:hover {
-  transform: translateY(-2px);
-}
-
-.mainContainer>.folders>a:active {
-  transform: translateY(0) scale(0.985);
-  transition-duration: 90ms;
-}
-
-.mainContainer>.folders>a>img {
-  transition: transform 300ms var(--ease);
-}
-
-.mainContainer>.folders>a:hover>img {
-  transform: scale(1.1);
-}
-
-/* ---------- bottom nav / dock ---------- */
-body>.navBar {
-  animation: dockIn 600ms var(--ease) 150ms backwards;
-}
-
-/* one sliding pill that glides between tabs (position set from script.js) */
-body>.navBar::before {
-  content: '';
-  position: absolute;
-  top: 6px;
-  bottom: calc(6px + env(safe-area-inset-bottom, 0px));
-  left: 0;
-  width: var(--iw, 0px);
-  transform: translateX(var(--ix, 0px));
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--accent) 18%, transparent);
-  pointer-events: none;
-}
-
-/* enable the glide only after first placement, so it doesn't fly in from 0 */
-body>.navBar.ready::before {
-  transition:
-    transform 450ms var(--ease),
-    width 450ms var(--ease);
-}
-
-/* the pill now provides the highlight, so tabs themselves stay transparent */
-.navBar>span.on {
-  background: transparent;
-}
-
-.navBar>span.icon {
-  transition: color 250ms ease, transform 200ms var(--ease);
-}
-
-.navBar>span.icon:active {
-  transform: scale(0.94);
-  transition-duration: 90ms;
-}
-
-.navBar>span.icon>i {
-  transition: opacity 250ms ease, transform 400ms var(--ease);
-}
-
-.navBar>span.icon>.iconName {
-  transition: opacity 250ms ease;
-}
-
-.navBar>span.on>i {
-  transform: translateY(-2px) scale(1.12);
-}
-
-@media (hover: hover) {
-  .navBar>span.icon:hover:not(.on) {
-    background: transparent;
-  }
-
-  .navBar>span.icon:hover:not(.on)>i,
-  .navBar>span.icon:hover:not(.on)>.iconName {
-    opacity: 0.9;
-  }
-}
-
-/* ---------- MOBILE (<700px): one panel at a time, slides in from the tapped side ---------- */
-@media (max-width: 699.98px) {
-  /* resting / exit state: parked slightly to the side the panel leaves toward */
-  .mainContainer>.folders {
-    transform: translateX(calc(var(--dir, 1) * -32px)) scale(0.985);
-    transform-origin: center;
-    transition: opacity 200ms ease, transform 300ms var(--ease-in);
-  }
-
-  .mainContainer>.folders.on {
-    transform: none;
-    transform-origin: center;
-    animation: panelIn 480ms var(--ease) backwards;
-  }
-
-  /* links cascade in right after the panel lands */
-  .mainContainer>.folders.on>a {
-    animation: linkIn 420ms var(--ease) backwards;
-  }
-
-  .mainContainer>.folders.on>a:nth-child(2) { animation-delay: 70ms; }
-  .mainContainer>.folders.on>a:nth-child(3) { animation-delay: 110ms; }
-  .mainContainer>.folders.on>a:nth-child(4) { animation-delay: 150ms; }
-  .mainContainer>.folders.on>a:nth-child(5) { animation-delay: 190ms; }
-  .mainContainer>.folders.on>a:nth-child(6) { animation-delay: 230ms; }
-  .mainContainer>.folders.on>a:nth-child(7) { animation-delay: 270ms; }
-}
-
-/* ---------- DESKTOP (>=700px) ---------- */
-@media (min-width: 700px) {
-  .topBar {
-    animation: topIn 600ms var(--ease) backwards;
-  }
-
-  body>.navBar {
-    animation-name: dockInDesktop;
-  }
-
-  /* panels rise in with the stagger delays already defined above */
-  .mainContainer>.folders,
-  .mainContainer>.folders.on {
-    animation-duration: 750ms;
-    animation-timing-function: var(--ease);
-    animation-fill-mode: backwards;
-  }
-
-  .mainContainer>.folders>a:hover {
-    transform: translateY(-3px);
-  }
-
-  .mainContainer>.folders>a::after {
-    transition: opacity 200ms ease, transform 300ms var(--ease);
-  }
-
-  /* search bar widens when focused */
-  .search {
-    transition: flex-basis 400ms var(--ease);
-  }
-
-  .search:focus-within {
-    flex-basis: 460px;
-  }
-
-  .search i {
-    transition: color 250ms ease;
-  }
-
-  .search:focus-within i {
-    color: var(--accent);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation: none !important;
-    transition-duration: 0.01ms !important;
+    transition: none !important
   }
 }
