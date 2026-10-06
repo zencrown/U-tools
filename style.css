@@ -167,7 +167,7 @@ body {
 
 .mainContainer>.folders.on {
   display: flex;
-  animation: panelIn 420ms var(--ease) both
+  animation: panelIn 1080ms var(--ease) both
 }
 
 @keyframes panelIn {
