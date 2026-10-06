@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <link rel="icon" type="image/png" href="./tools_iconx.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Tools</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="mainContainer">
+    <div class="folders ai on">
+      <a href="https://copilot.microsoft.com/"><img src="https://copilot.microsoft.com/favicon.ico">bing.ai</a>
+      <a target="_blank" href="https://chatgpt.com/"><img src="https://cdn.oaistatic.com/assets/favicon-miwirzcw.ico">chatgpt-open.ai</a>
+      <a target="_blank" href="https://chat.deepseek.com/"><img src="https://custom.typingmind.com/assets/models/deepseek.png">deep-seek.ai</a>
+      <a target="_blank" href="https://gemini.google.com/app?hl=en-IN"><img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg">gemini.ai</a>
+    </div>
+    <div class="folders image">
+      <a target="_blank" href="https://www.pixelcut.ai/background-remover"><img src="https://www.pixelcut.ai/favicon.ico">background remover - pixelcut.ai</a>
+      <a target="_blank" href="https://www.pixelcut.ai/uncrop"><img src="https://www.pixelcut.ai/favicon.ico">uncrop - pixelcut.ai</a>
+      <a target="_blank" href="https://www.pixelcut.ai/image-upscaler"><img src="https://www.pixelcut.ai/favicon.ico">upscaler - pixelcut.ai</a>
+    </div>
+    <div class="folders video">
+      <a target="_blank" href="https://app.pixverse.ai/home"><img src="https://cdn.pixverse.ai/app/app-pixverse/favicon-pixverse.svg">pixverse</a>
+      <a target="_blank" href="https://www.vidu.com/create/img2video"><img src="https://www.vidu.com/logo.svg">vidu studio</a>
+    </div>
+    <div class="folders audio">
+      <a target="_blank" href="https://studio.camb.ai/workspace/"><img src="https://cdn.prod.website-files.com/664c2662b73ee14c26425064/6663e0b076d12bc11dbfdb9d_favicon-32x32.png">camb.ai</a>
+    </div>
+    <div class="folders wallpaper">
+      <a target="_blank" href="https://wallpaperswide.com/"><img src="https://wallpaperswide.com/favicon.ico">wallpaperswide 8K</a>
+      <a target="_blank" href="https://wallpaper.mob.org/"><img src="https://mobjs.b-cdn.net/_/img/mob-favicon.ico">mob.org</a>
+      <a href="https://www.freepik.com/search?format=search&last_filter=query&last_value=&query="><img src="https://cdn-front.freepik.com/favicons/favicon.ico">freepik.com</a>
+    </div>
+    <div class="folders importx">
+      <a target="_blank" href="https://temp-mail.org/en/"><img src="https://temp-mail.org/images/favicon.ico">temp-mail</a>
+      <a target="_blank" href="https://cubic-bezier.com/"><img src="https://www.cssportal.com/assets/images/favicon.ico">cubic-bezier generator</a>
+      <a href="https://imagetostl.com/create-3d-heightmap"><img src="https://imagetostl.com/c/i/f32.png">height-map generator</a>
+      <a href="https://ezgif.com/maker"><img src="https://ezgif.com/favicon.ico">gif editor</a>
+    </div>
+    <div class="folders others" style="display: none !important">
+      <a href="https://github.com/"><img src="https://github.githubassets.com/favicons/favicon-dark.png">github.io</a>
+      <a href="https://codepen.io/your-work"><img src="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">codepen.io</a>
+      <a href="https://bysimpuprasad.github.io/repo/folderx/drivo/index.html"> <img src="https://bysimpuprasad.github.io/repo/folderx/drivo/drivo_logo.png" alt=""> drivo</a>
+    </div>
+  </div>
+  <div class="navBar">
+    <span class="icon on" onclick="flipFolders(1)"><i class="fa fa-magic"></i><span class="iconName">ai</span><span class="navSpanBG"></span></span>
+    <span class="icon" onclick="flipFolders(2)"><i class="fa fa-image"></i><span class="iconName">image</span><span class="navSpanBG"></span></span>
+    <span class="icon" onclick="flipFolders(3)"><i class="fa fa-video-camera"></i><span class="iconName">video</span><span class="navSpanBG"></span></span>
+    <span class="icon" onclick="flipFolders(4)"><i class="fa fa-volume-up"></i><span class="iconName">audio</span><span class="navSpanBG"></span></span>
+    <span class="icon" onclick="flipFolders(5)"><i class="fa fa-tv"></i><span class="iconName">wallpaper</span><span class="navSpanBG"></span></span>
+    <span class="icon" onclick="flipFolders(6)"><i class="fa fa-rocket"></i><span class="iconName">tech</span><span class="navSpanBG"></span></span>
+    <span class="icon" onclick="flipFolders(7)" style="display: none !important"><i class="fa fa-star-o"></i><span class="iconName">important</span><span class="navSpanBG"></span></span>
+  </div>
+  <script src="main.js"></script>
+</body>
+
+</html>

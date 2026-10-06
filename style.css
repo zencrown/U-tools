@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Text+Me+One&family=Trade+Winds&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Ubuntu", sans-serif;
+}
+
+:root {
+  --spring: cubic-bezier(0.47, 1.74, 0.41, 0.8);
+  --textN: #fff;
+  --folderBG: #111111;
+  --navBarBG: #1b1a24;
+  --iconGlint: repeating-conic-gradient(transparent, #ffffff30 20%);
+}
+html{
+  width:100%;
+  height: 100svh;
+  overflow: hidden;
+}
+body {
+  width: 100%;
+  height: 100svh;
+  background: var(--folderBG) url("./animated-space-dark-optimized.svg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden !important;
+}
+
+body>.mainContainer {
+  border: none;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  max-width: 800px;
+}
+
+.mainContainer>.folders {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all 600ms ease, transform-origin 0s ease 0s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 10px 20px;
+  background: none;
+  color: white;
+  border: none;
+  flex-shrink: 0;
+  opacity: 0%;
+  transform: scale(0) scaleY(2);
+  transform-origin: top;
+  pointer-events: none;
+  -webkit-pointer-events: none;
+}
+
+.mainContainer>.folders.on {
+  opacity: 100%;
+  transform: none;
+  transform-origin: bottom;
+  z-index: 1;
+  pointer-events: auto;
+  -webkit-pointer-events: auto;
+}
+
+.mainContainer>.folders>a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  background: none;
+  padding: 8px;
+  margin: 5px 0px;
+  text-decoration: none;
+  color: var(--textN);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.mainContainer>.folders>a::before{
+  position: absolute;
+  content: '';
+  top:0;
+  left:0;
+  background: var(--navBarBG);
+  opacity:70%;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.mainContainer>.folders>a>img{
+  height:25px;
+  margin-right: 10px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: none;
+  padding: 2px;
+}
+
+/* NAV-BAR */
+
+body>.navBar {
+  border: none;
+  background: var(--navBarBG);
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 5px;
+  opacity: 100%;
+  border-radius: 7px 7px 0px 0px;
+  max-width: 700px;
+}
+
+.navBar>span.icon {
+  position: relative;
+  bottom: 0;
+  height: 100%;
+  aspect-ratio: 1/1;
+  background: none;
+  color: var(--textN);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 10px;
+  transition: all 0.4s;
+}
+
+.navBar>span.icon * {
+  pointer-events: none;
+}
+
+.navBar>span.icon>.iconName {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  top: 0%;
+  font-size: 10px;
+  opacity: 0%;
+  transition: all 1s ease 0ms, font-size 0s;
+}
+
+.navBar>span.on>.iconName {
+  transition: all 600ms ease 300ms, font-size 0s;
+  opacity: 100%;
+  top: -80%;
+}
+
+.navBar>span.icon>.navSpanBG {
+  pointer-events: none;
+  position: absolute;
+  width: 0%;
+  aspect-ratio: 1/1;
+  background: var(--iconGlint);
+  box-shadow: inset 0px 0px 0px 1px var(--textN);
+  border-radius: 50%;
+  transition: all 0.5s;
+  animation: rotnavSpanBG 3s linear 0s infinite;
+  opacity: 0%;
+}
+
+.navBar>span.on>.navSpanBG {
+  width: 130%;
+  opacity: 100%;
+}
+
+@keyframes rotnavSpanBG {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.navBar>span.on {
+  position: relative;
+  bottom: 10px;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--navBarBG);
+  font-size: 120%;
+  box-shadow: 0px 0px 0px 15px var(--navBarBG);
+}
+
+.navBar>span.on::before,
+.navBar>span.on::after {
+  position: absolute;
+  content: '';
+  bottom: 86%;
+  left: -73%;
+  background: radial-gradient(ellipse at 0% 0%, transparent 70%, var(--navBarBG) 70%);
+  width: 50%;
+  height: 6px;
+}
+
+.navBar>span.on::after {
+  left: auto;
+  right: -74%;
+  background: radial-gradient(ellipse at 90% 0, transparent 70%, var(--navBarBG) 70%);
+}
+
+.navBar>span>i {
+  position: relative;
+  pointer-events: none;
+  -webkit-pointer-events: none;
+  opacity: 50%;
+  z-index: 1;
+  transition: opacity 500ms;
+}
+
+.navBar>span.on>i {
+  opacity: 100%;
+}
