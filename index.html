@@ -6,16 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>uTool</title>
   <link rel="icon" type="image/png" href="favicon.png">
-  
+
   <!-- PWA -->
   <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#121212" />
+  <meta name="theme-color" content="#0b0c12" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="uTool" />
-  
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <!-- Local CSS -->
@@ -24,50 +24,72 @@
 
 <body>
 
+  <!-- Desktop header (hidden below 700px) -->
+  <header class="topBar">
+    <div class="brand">
+      <div class="brandText">
+        <h1>uTool</h1>
+        <p id="linkCount">your launchpad</p>
+      </div>
+    </div>
+    <label class="search">
+      <i class="fa fa-search"></i>
+      <input id="search" type="search" placeholder="Search tools" autocomplete="off" />
+      <kbd class="searchKey">/</kbd>
+    </label>
+  </header>
+
   <div class="mainContainer">
     <div class="folders ai on">
+      <h2 class="folderTitle"><i class="fa fa-magic"></i>AI</h2>
       <a href="https://copilot.microsoft.com/"><img src="https://copilot.microsoft.com/favicon.ico">bing.ai</a>
       <a target="_blank" href="https://chatgpt.com/"><img src="https://cdn.oaistatic.com/assets/favicon-miwirzcw.ico">chatgpt-open.ai</a>
       <a target="_blank" href="https://chat.deepseek.com/"><img src="https://custom.typingmind.com/assets/models/deepseek.png">deep-seek.ai</a>
       <a target="_blank" href="https://gemini.google.com/app?hl=en-IN"><img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg">gemini.ai</a>
     </div>
     <div class="folders image">
+      <h2 class="folderTitle"><i class="fa fa-image"></i>Image</h2>
       <a target="_blank" href="https://www.pixelcut.ai/background-remover"><img src="https://www.pixelcut.ai/favicon.ico">background remover - pixelcut.ai</a>
       <a target="_blank" href="https://www.pixelcut.ai/uncrop"><img src="https://www.pixelcut.ai/favicon.ico">uncrop - pixelcut.ai</a>
       <a target="_blank" href="https://www.pixelcut.ai/image-upscaler"><img src="https://www.pixelcut.ai/favicon.ico">upscaler - pixelcut.ai</a>
     </div>
     <div class="folders video">
+      <h2 class="folderTitle"><i class="fa fa-video-camera"></i>Video</h2>
       <a target="_blank" href="https://app.pixverse.ai/home"><img src="https://cdn.pixverse.ai/app/app-pixverse/favicon-pixverse.svg">pixverse</a>
       <a target="_blank" href="https://www.vidu.com/create/img2video"><img src="https://www.vidu.com/logo.svg">vidu studio</a>
     </div>
     <div class="folders audio">
+      <h2 class="folderTitle"><i class="fa fa-volume-up"></i>Audio</h2>
       <a target="_blank" href="https://studio.camb.ai/workspace/"><img src="https://cdn.prod.website-files.com/664c2662b73ee14c26425064/6663e0b076d12bc11dbfdb9d_favicon-32x32.png">camb.ai</a>
     </div>
     <div class="folders wallpaper">
+      <h2 class="folderTitle"><i class="fa fa-tv"></i>Wallpaper</h2>
       <a target="_blank" href="https://wallpaperswide.com/"><img src="https://wallpaperswide.com/favicon.ico">wallpaperswide 8K</a>
       <a target="_blank" href="https://wallpaper.mob.org/"><img src="https://mobjs.b-cdn.net/_/img/mob-favicon.ico">mob.org</a>
       <a href="https://www.freepik.com/search?format=search&last_filter=query&last_value=&query="><img src="https://cdn-front.freepik.com/favicons/favicon.ico">freepik.com</a>
     </div>
     <div class="folders importx">
+      <h2 class="folderTitle"><i class="fa fa-rocket"></i>Tech</h2>
       <a target="_blank" href="https://temp-mail.org/en/"><img src="https://temp-mail.org/images/favicon.ico">temp-mail</a>
       <a target="_blank" href="https://cubic-bezier.com/"><img src="https://www.cssportal.com/assets/images/favicon.ico">cubic-bezier generator</a>
       <a href="https://imagetostl.com/create-3d-heightmap"><img src="https://imagetostl.com/c/i/f32.png">height-map generator</a>
       <a href="https://ezgif.com/maker"><img src="https://ezgif.com/favicon.ico">gif editor</a>
     </div>
     <div class="folders others" style="display: none !important">
+      <h2 class="folderTitle"><i class="fa fa-star-o"></i>Important</h2>
       <a href="https://github.com/"><img src="https://github.githubassets.com/favicons/favicon-dark.png">github.io</a>
       <a href="https://codepen.io/your-work"><img src="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">codepen.io</a>
       <a href="https://bysimpuprasad.github.io/repo/folderx/drivo/index.html"> <img src="https://bysimpuprasad.github.io/repo/folderx/drivo/drivo_logo.png" alt=""> drivo</a>
     </div>
   </div>
   <div class="navBar">
-    <span class="icon on" onclick="flipFolders(1)"><i class="fa fa-magic"></i><span class="iconName">ai</span><span class="navSpanBG"></span></span>
-    <span class="icon" onclick="flipFolders(2)"><i class="fa fa-image"></i><span class="iconName">image</span><span class="navSpanBG"></span></span>
-    <span class="icon" onclick="flipFolders(3)"><i class="fa fa-video-camera"></i><span class="iconName">video</span><span class="navSpanBG"></span></span>
-    <span class="icon" onclick="flipFolders(4)"><i class="fa fa-volume-up"></i><span class="iconName">audio</span><span class="navSpanBG"></span></span>
-    <span class="icon" onclick="flipFolders(5)"><i class="fa fa-tv"></i><span class="iconName">wallpaper</span><span class="navSpanBG"></span></span>
-    <span class="icon" onclick="flipFolders(6)"><i class="fa fa-rocket"></i><span class="iconName">tech</span><span class="navSpanBG"></span></span>
-    <span class="icon" onclick="flipFolders(7)" style="display: none !important"><i class="fa fa-star-o"></i><span class="iconName">important</span><span class="navSpanBG"></span></span>
+    <span class="icon on"><i class="fa fa-magic"></i><span class="iconName">ai</span><span class="navSpanBG"></span></span>
+    <span class="icon"><i class="fa fa-image"></i><span class="iconName">image</span><span class="navSpanBG"></span></span>
+    <span class="icon"><i class="fa fa-video-camera"></i><span class="iconName">video</span><span class="navSpanBG"></span></span>
+    <span class="icon"><i class="fa fa-volume-up"></i><span class="iconName">audio</span><span class="navSpanBG"></span></span>
+    <span class="icon"><i class="fa fa-tv"></i><span class="iconName">wallpaper</span><span class="navSpanBG"></span></span>
+    <span class="icon"><i class="fa fa-rocket"></i><span class="iconName">tech</span><span class="navSpanBG"></span></span>
+    <span class="icon" style="display: none !important"><i class="fa fa-star-o"></i><span class="iconName">important</span><span class="navSpanBG"></span></span>
   </div>
   <script src="script.js"></script>
 </body>
