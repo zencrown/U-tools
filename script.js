@@ -29,3 +29,14 @@ function flipFolders(e){
   }
   folders[e-1].classList.add('on');
 }
+
+
+// ---------- PWA: Service Worker registration (always keep it on bottom) ----------
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    // Path is relative to this page (site root), resolves to /sw.js at the site root
+    navigator.serviceWorker.register('./sw.js')
+      .then((reg) => console.log('Service worker registered:', reg.scope))
+      .catch((err) => console.warn('Service worker registration failed:', err));
+  });
+}
