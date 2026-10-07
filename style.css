@@ -98,7 +98,7 @@ body {
   margin: 5px 0;
   gap: 10px;
   overflow: hidden;
-  width: min(100%, 420px);
+  width: min(100%, 650px);
   color: var(--text);
   text-decoration: none;
   white-space: nowrap;
